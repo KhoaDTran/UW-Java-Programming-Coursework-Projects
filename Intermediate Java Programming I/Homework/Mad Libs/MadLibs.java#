@@ -1,0 +1,82 @@
+// Khoa Tran
+// 10/23/2018
+// CSE142
+// TA: Elizabeth McKinnie
+// Assignment #
+
+// add comment
+
+import java.util.*;
+import java.io.*;
+
+public class MadLibs {
+   public static void main(String[] args) throws FileNotFoundException {
+      Scanner console = new Scanner(System.in);
+      intro();
+      System.out.print("(C)reate mad-lib, (V)iew mad-lib, (Q)uit? ");
+      String answer = console.nextLine();
+      if (answer.equalsIgnoreCase("c")) {
+         Scanner input = new Scanner(create(console));
+         System.out.println("Output file name: ");
+         String outputFile = console.nextLine();
+         PrintStream output = new PrintStream(new File(outputFile));
+         replace(console, input, output);
+      }
+         
+
+      // replace(console, input, output); 
+       
+      
+      
+   }
+   
+   public static void intro() {
+      System.out.println("Welcome to the game of Mad Libs.");
+      System.out.println("I will ask you to provide various words");
+      System.out.println("and phrases to fill in a story.");
+      System.out.println("The results will be written to an output file.");
+      System.out.println();
+   }
+  
+   public static void replace(Scanner console, Scanner input, PrintStream output) {
+      while (input.hasNextLine()) {
+         String line = input.nextLine();
+         Scanner lineScan = new Scanner(line);
+         while (lineScan.hasNext()) {
+            String word = lineScan.next();
+            if (word.startsWith("<") && word.endsWith(">")) {
+               String wholeWord = word;
+               String placeholder = word.toLowerCase().substring(1, word.length() - 1);
+               placeholder = placeholder.replace("-"," ");
+               if (placeholder.startsWith("a") || placeholder.startsWith("e") 
+                  || placeholder.startsWith("i") || placeholder.startsWith("o") 
+                  || placeholder.startsWith("u")) {
+                  System.out.print("Please type an " + placeholder + ": ");
+               } else {
+                  System.out.print("Please type a " + placeholder + ": ");
+               }
+               String newWord = console.nextLine();
+               line = line.replace(wholeWord, newWord);
+            }  
+         }
+         output.println(line);   
+      }
+      System.out.println("Your mad-lib has been created!");        
+   }
+
+   public static File create(Scanner console) {
+      System.out.print("Input file name: ");
+      String fileInput = console.nextLine();
+      File f = new File (fileInput);
+      while (!f.exists()) {
+         System.out.print("File not found. Try again: ");
+         fileInput = console.nextLine();
+         f = new File(fileInput);
+      }
+      return f;
+   }
+
+}
+
+
+   

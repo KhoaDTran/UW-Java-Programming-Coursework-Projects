@@ -1,0 +1,70 @@
+// Khoa Tran
+// 02/14/2019
+// CSE143
+// TA: Amir Nola
+// Assignment #5
+
+/* 
+*/
+import java.util.*;
+
+public class GrammarSolver {
+   private SortedMap<String, String[]> grammarRules; //
+   
+   // pre: the given list of grammar can't be empty, and there can't be any duplicates of a nonterminal
+   // (throws IllegalArgumentException if one of the prerequisites above is false) 
+   // post: 
+   public GrammarSolver(List<String> grammar) {
+      if (grammar.isEmpty()) {
+         throw new IllegalArgumentException();
+      }
+      grammarRules = new TreeMap<String,String[]>();
+      for (String sequence : grammar) {
+         String[] parts = sequence.split("::="); //fix name for parts
+         String[] terminal = parts[1].trim().split("\\|");
+         if (grammarRules.containsKey(parts[0])) {
+            throw new IllegalArgumentException();
+         }
+         grammarRules.put(parts[0], terminal);
+      }
+   }
+   
+   // post: returns true if the given symbol is a nonterminal symbol in the grammar
+   // if not, returns false. (case sensitive for given input symbol)
+   public boolean grammarContains(String symbol) {
+      return grammarRules.containsKey(symbol);
+   }
+   
+   // post: 
+   public String[] generate(String symbol, int times) {
+      if (!grammarContains(symbol) || times < 0) {
+         throw new IllegalArgumentException();
+      }
+      String[] resultSentence = new String[times];
+      for (int i = 0; i < times; i++) {
+         resultSentence[i] = createSentences(symbol);
+      }
+      return resultSentence;
+   }
+   
+   // post: returns all of the nonterminal symbols in the grammar
+   // in sorted order, seperated by commas and enclosed in square brackets
+   public String getSymbols() {
+      return grammarRules.keySet().toString();
+   }
+   
+   // post: 
+   private String createSentences(String symbol) {
+      String sentence = "";
+      if (!grammarContains(symbol)) {
+         return symbol;
+      }
+      String[] allRules = grammarRules.get(symbol);
+      int randNum = (int)(Math.random() * (allRules.length));
+      //String[] choosenTerminal = allRules[randNum].split("\\s+"); //fix varaible name and check
+      for (String terminal : allRules) {
+         sentence += createSentences(terminal) + " ";
+      }
+      return sentence.trim();
+   }
+}

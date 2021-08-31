@@ -1,0 +1,10 @@
+CONVERSION
+
+CONVERSION takes an arbitrary value which is companied by the
+value's type of units and the desired output units. The conversion
+is able to convert between any arbitrary unit like miles per day 
+or liters per minute and convert it into a desired unit like
+kilometers per minute and gallons per hour.
+
+Input: CONVERSION 5 miles minute kilometers hour
+Output: 482 kilometers per hour

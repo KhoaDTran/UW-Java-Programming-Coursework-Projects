@@ -1,0 +1,86 @@
+// Khoa Tran
+// 01/15/2019
+// CSE143
+// TA: Amir Nola
+// Assignment #1
+
+/* Proce
+*/
+import java.util.*;
+
+public class LetterInventory {
+   public static final int DEFAULT_CAPACITY = 26;
+   private int[] elementData;
+   private int size;
+   private String word; 
+   
+   public LetterInventory(String data) {
+      this.elementData = new int[DEFAULT_CAPACITY];
+      word = data.toLowerCase();
+      for (int i = 0; i < word.length(); i++) {
+         if(word.charAt(i) >= 'a' && word.charAt(i) <= 'z') {
+            elementData[word.charAt(i) - 'a']++;
+            size++;
+         }
+      }
+   }
+   
+   public int get(char letter) {
+      char ch = Character.toLowerCase(letter);
+      if (letter <= 'a' && letter >= 'z') {
+         throw new IllegalArgumentException();
+      } else {        
+         return elementData[ch - 'a'];
+      }
+   }
+   
+   public void set(char letter, int value) {
+      char ch = Character.toLowerCase(letter);
+      if (letter <= 'a' && letter >= 'z') {
+         throw new IllegalArgumentException();
+      } else {
+         size = size - elementData[ch - 'a'] + value;
+         elementData[ch - 'a'] = value;
+      }
+   }
+   
+   public int size() {
+      return size;
+   }
+   
+   public boolean isEmpty() {
+      return size == 0;
+   }
+   
+   public String toString() {
+      String str = "[";
+      for (int i = 0; i < DEFAULT_CAPACITY ; i++) {
+         for (int j = 0; j < elementData[i]; j++) {
+            str += (char) (i + 'a');
+         }
+      }
+      str += "]";
+      return str;
+   }
+   
+   public LetterInventory add(LetterInventory other) {
+      LetterInventory result = new LetterInventory("");
+      for (int i = 0; i < DEFAULT_CAPACITY ; i++) {
+         result.elementData[i] = this.elementData[i] + other.elementData[i];
+      }
+      result.size = this.size + other.size;
+      return result;    
+   }
+   
+   public LetterInventory subtract(LetterInventory other) {
+      LetterInventory result = new LetterInventory("");
+      for (int i = 0; i < DEFAULT_CAPACITY; i++) {
+         result.elementData[i] = other.elementData[i] - this.elementData[i];
+         if (result.elementData[i] < 0) {
+            return null;
+         }
+      }
+      result.size = other.size - this.size;
+      return result;
+   }
+}

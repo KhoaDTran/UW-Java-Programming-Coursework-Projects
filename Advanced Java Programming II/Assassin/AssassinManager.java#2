@@ -1,0 +1,67 @@
+// Khoa Tran
+// 01/15/2019
+// CSE143
+// TA: Amir Nola
+// Assignment #1
+
+/* LetterInventory keeps track of the count of each letter in lower case from the given input data. 
+Can also combine or deduct with the other LetterInventory, 
+with the functionality to use the counts of each letter into multiple methods. 
+*/
+import java.util.*;
+
+public class AssassinManager {
+   private AssassinNode frontKillRing;
+   private AssassinNode frontGraveyard;
+   
+   public AssassinManager(List<String> names) {
+      if (names.isEmpty() && names == null) {
+         throw new IllegalArgumentException();
+      }
+      for (int i = 0; i < names.size(); i++) {
+         if (frontKillRing == null) {
+            frontKillRing = new AssassinNode(names.get(i));
+         }
+         AssassinNode current = frontKillRing;
+         while (current.next != null) {
+            current = current.next;
+         }
+         current.next = new AssassinNode(names.get(i)); 
+      }
+   }
+   
+   public void printKillRing() {
+      AssassinNode current = frontKillRing;
+      while (current != null) {
+         if (current.next != null) {
+            System.out.println("    " + current.name + " is stalking " + current.next.name);
+         } else {
+            System.out.println("    " + current.name + " is stalking " + frontKillRing.name);
+         }
+         current = current.next;
+      }
+   }
+   
+   public void printGraveyard() {
+      
+   }
+   
+   public boolean killRingContains(String name) {
+      return false;
+   }
+   
+   public boolean graveyardContains(String name) {
+      return false;
+   }
+   
+   public boolean gameOver() {
+      return false;
+   }
+   
+   public String winner() {
+      return null;   
+   }
+   
+   public void kill(String name) {
+   }
+}

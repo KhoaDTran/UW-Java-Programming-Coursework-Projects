@@ -1,0 +1,16 @@
+public class Figure {
+	public static void main(String[] args) {
+		drawDiamond();
+		
+		System.out.println("\\");
+	}
+	public static void drawDiamond () {
+		System.out.println("   /\\");
+		System.out.println("  /  \\");
+		System.out.println(" /    \\");
+		System.out.println(" \\    /");
+		System.out.println("  \\  /");
+		System.out.println("   \\/");
+		
+	}
+}

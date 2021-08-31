@@ -1,0 +1,47 @@
+// Khoa Tran
+// 10/08/2018
+// CSE142
+// TA: Elizabeth McKinnie
+// Assignment #2: Rocket Ship
+
+// Outputs a d
+
+import java.util.*;
+
+public class Budgeter {
+	
+	public static final int days = 31;
+	public static void main(String[] args) {
+		Scanner console = new Scanner(System.in);
+		
+		
+		intro();
+		incomeAmount(console);
+	
+	}
+	
+	// add Comments 
+	public static void intro () {
+		System.out.println("This program asks for your monthly income and expenses,"
+				+ " then tells you your net monthly income.");
+		System.out.println();
+	}
+
+	//add comments
+	public static double incomeAmount(Scanner console) {
+		System.out.print("How many categories of income? ");
+		int categories = console.nextInt();
+		double totalIncome = 0;
+		for (int i = 0; i< categories; i++) {
+			System.out.print("Next income amount? ");
+			double income = console.nextDouble();
+			totalIncome += income;
+		}
+		System.out.println();
+		
+		return totalIncome;
+		
+		
+	}
+}
+

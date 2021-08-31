@@ -1,0 +1,13 @@
+*.zip
+*.class
+*.gz
+*.gitattributes
+*segments_1
+*.lock
+*.json
+*.rss
+*.cfe
+*.log
+*.cfs
+*.si
+*.xml
